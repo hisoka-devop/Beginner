@@ -1,18 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionMixin
+from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 # Create your models here.
 
 
-Class UserProfileManager(BaseUserManager):
+class UserProfileManager(BaseUserManager):
     """
     UserProfileManager is the class that would help to interface with the django cli
     """
     def create_user(self, email, name, password=None):
-    """
-    Create New User Profile
-    """
+        """
+        Create New User Profile
+        """
         if not email:
             raise ValueError('Email has not been provided')
 
@@ -26,9 +26,9 @@ Class UserProfileManager(BaseUserManager):
         return user
 
     def create_superuser(email, name, password=None):
-    """
-    Create a superuser
-    """
+        """
+        Create a superuser
+        """
         user = self.create_user(self, email, name, password)
         user.is_staff = True
         user.is_superuser = True
@@ -38,7 +38,7 @@ Class UserProfileManager(BaseUserManager):
         return user
 
 
-Class UserProfile(AbstractBaseUser, PermissionMixin):
+class UserProfile(AbstractBaseUser, PermissionsMixin):
     """
     UserProfile is the application replacement for the default user model.
     """
@@ -68,3 +68,4 @@ Class UserProfile(AbstractBaseUser, PermissionMixin):
         """
         Returns the string representation email
         """
+        return self.email
