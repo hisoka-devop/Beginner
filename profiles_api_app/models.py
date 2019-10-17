@@ -1,4 +1,4 @@
-gitfrom django.db import models
+from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
@@ -30,7 +30,7 @@ class UserProfileManager(BaseUserManager):
         """
         Create a superuser
         """
-        user = self.create_user(self, email, name, password)
+        user = self.create_user(email=email, name=name, password=password)
         user.is_staff = True
         user.is_superuser = True
 
