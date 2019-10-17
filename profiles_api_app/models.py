@@ -1,4 +1,4 @@
-from django.db import models
+gitfrom django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
@@ -16,6 +16,7 @@ class UserProfileManager(BaseUserManager):
         if not email:
             raise ValueError('Email has not been provided')
 
+        #normalize_email is simply a method that shall lowercase the @<domain> to avoid any amiguities
         email = self.normalize_email(email)
         name = self.name
         user = self.model(email=email, name=name)
