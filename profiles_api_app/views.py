@@ -10,6 +10,7 @@ class HelloApiView(APIView):
     """
     A class of the APIView to return simple hello world and message
     """
+    serializer_class = serializers.HelloSerializer
 
     def get(self, request, format=None):
         """
@@ -39,7 +40,7 @@ class HelloApiView(APIView):
         Returns:
             Response: Holding either the Hello Name submitted or a response code of 404
         """
-        serializer = serializers.HelloSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             name = serializer.validated_data.get('name')
             greetings = f'Hello {name}'
@@ -50,3 +51,27 @@ class HelloApiView(APIView):
             return Response(serializer.errors,
                             status = status.HTTP_400_BAD_REQUEST,
                             )
+
+    def put(self, request, pk=None):
+        '''To update full objects'''
+        return Response(
+            {
+                'Method':'PUT',
+            }
+        )
+
+    def patch(self, request, pk=None):
+        '''To udpate objects partially'''
+        return Response(
+            {
+                'Method':'PATCH',
+            }
+        )
+
+    def delete(self, request, pk=None):
+        '''To delete an object fully'''
+        return Response(
+            {
+                'Method':'DELETE',
+            }
+        )
