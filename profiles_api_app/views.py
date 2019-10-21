@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import viewsets
-from rest_framework.response import Response
-
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.response import Response
+from rest_framework import filters
+
+from profiles_api_app import models
 from profiles_api_app import serializers
+from profiles_api_app import permissions
+
 
 # Create your views here.
 
@@ -131,3 +136,12 @@ class HelloViewSet(viewsets.ViewSet):
         return Response({
             'Method':'DELETE'
         })
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UserProfilePermissions,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name','email',)

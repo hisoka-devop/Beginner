@@ -13,12 +13,14 @@ class UserProfileManager(BaseUserManager):
         """
         Create New User Profile
         """
+        print("FirstTime: "+str(name))
         if not email:
             raise ValueError('Email has not been provided')
 
         #normalize_email is simply a method that shall lowercase the @<domain> to avoid any amiguities
         email = self.normalize_email(email)
-        name = self.name
+        name = name
+        print("SecondTime: "+str(name))
         user = self.model(email=email, name=name)
         user.set_password(password)
 
